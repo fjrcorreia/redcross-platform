@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>pt.fjrcorreia.redcross</groupId>
+    <artifactId>red-cross-platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <name>Red Cross :: Emergency Integrated Platform </name>
+   
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- Source Level Compilation -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    
+        <!-- Custom Tag to update all project sufix name -->    
+        <project.custom.base.name>Red Cross Platform</project.custom.base.name>
+        
+    </properties>
+    
+    
+    <url>https://github.com/fjrcorreia/red-cross-platform</url>
+
+    <issueManagement>
+        <url>https://github.com/fjrcorreia/red-cross-platform/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License version 3</name>
+            <url>https://opensource.org/licenses/GPL-3.0</url>
+        </license>
+    </licenses>
+
+
+
+    <scm>
+        <url>https://github.com/fjrcorreia/red-cross-platform</url>
+        <connection>scm:git:git://github.com/fjrcorreia/red-cross-platform.git</connection>
+        <developerConnection>scm:git:git@github.com:fjrcorreia/red-cross-platform.git</developerConnection>
+    </scm>
+
+
+    <developers>
+        <developer>
+            <name>Francisco Correia</name>
+            <url>https://github.com/fjrcorreia</url>
+            <id>fjrcorreia</id>
+        </developer>
+    </developers>
+    
+    
+    
+    <modules>
+        <module>src/platform-api</module>
+        <module>src/platform-entities</module>
+        <module>src/platform-web-portal</module>
+        <module>src/platform-web-services</module>
+        <module>src/platform-security</module>
+        <module>src/platform-commons</module>
+    </modules>
+    
+    
+</project>
