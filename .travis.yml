@@ -11,8 +11,3 @@ before_script:
   - echo $HOME
   - echo $JAVA_OPTS
   - echo $MAVEN_OPTS
-
-jdk:
-  - openjdk8
-
-  
