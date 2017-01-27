@@ -9,5 +9,5 @@ cache:
 
 before_script:
   - echo $HOME
-  - echo "JAVA_OPTS: $JAVA_OPTS"
-  - echo "MVN_OPTS : $MAVEN_OPTS"
+  - echo $JAVA_OPTS
+  - echo $MAVEN_OPTS
