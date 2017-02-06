@@ -1,3 +1,10 @@
+# local files
+db.env
+keycloak.env
+wildfly.env
+local.properties
+
+
 # Binaries
 *.class
 
