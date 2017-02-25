@@ -1,4 +1,4 @@
-# Binaries 
+# Binaries
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -18,3 +18,7 @@ hs_err_pid*
 # Netbeans configuration
 **/nb-configuration.xml
 
+
+# IDEA
+**/.idea/*
+*.iml
