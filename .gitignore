@@ -24,9 +24,9 @@ hs_err_pid*
 
 # Netbeans configuration
 **/nb-configuration.xml
+**/nbproject/*
 
 
 # IDEA
 **/.idea/*
 *.iml
-/src/platform-commons/nbproject/

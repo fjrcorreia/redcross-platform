@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>pt.fjrcorreia.redcross</groupId>
     <artifactId>red-cross-platform</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <name>Red Cross :: Emergency Integrated Platform </name>
-   
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <!-- Source Level Compilation -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-    
-        <!-- Custom Tag to update all project sufix name -->    
+
+        <!-- Custom Tag to update all project sufix name -->
         <project.custom.base.name>Red Cross Platform</project.custom.base.name>
-        
+
+        <!-- SonarQube Server -->
+        <sonar.host.url>https://sonarqube.com</sonar.host.url>
     </properties>
-    
-    
+
+
     <url>https://github.com/fjrcorreia/red-cross-platform</url>
 
     <issueManagement>
@@ -52,9 +54,9 @@
             <id>fjrcorreia</id>
         </developer>
     </developers>
-    
-    
-    
+
+
+
     <modules>
         <module>src/platform-api</module>
         <module>src/platform-entities</module>
@@ -63,8 +65,8 @@
         <module>src/platform-security</module>
         <module>src/platform-commons</module>
     </modules>
-    
-    
+
+
     <build>
         <pluginManagement>
             <plugins>
@@ -103,7 +105,7 @@
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
-                
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
@@ -122,14 +124,14 @@
                             </configuration>
                         </execution>
                     </executions>
-                </plugin>                       
+                </plugin>
 
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
                     <artifactId>wildfly-maven-plugin</artifactId>
                     <version>1.1.0.Final</version>
                     <configuration>
-                        <filename>${project.build.finalName}.war</filename>                    
+                        <filename>${project.build.finalName}.war</filename>
                         <skip>false</skip>
                     </configuration>
                     <executions>
@@ -141,14 +143,46 @@
                         </execution>
                     </executions>
                 </plugin>
-            </plugins>                 
+            </plugins>
         </pluginManagement>
     </build>
-    
+
     <profiles>
         <profile>
             <id>deploy</id>
         </profile>
+
+
+        <profile>
+            <id>analysis</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Optional URL to server. Default value is http://localhost:9000 -->
+                <!-- https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner -->
+
+
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.2</version>
+                        <executions>
+                            <execution>
+                                <id>sonar-maven</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-    
+
 </project>
