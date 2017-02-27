@@ -14,11 +14,15 @@ services:
         networks:
             - development
 
-    keycloak:
+    keycloack:
         image: jboss/keycloak:2.5.0.Final
         hostname: "keycloack"
         env_file:
             - keycloak.env
+        environment:
+            - DEBUG=true
+        volumes:
+            - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
         expose:
             - "8080"
             - "9990"
@@ -32,6 +36,8 @@ services:
         hostname: "wildfly"
         env_file:
             - wildfly.env
+        environment:
+            - DEBUG=true
         expose:
             - "8080"
             - "9990"
