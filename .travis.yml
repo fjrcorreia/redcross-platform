@@ -5,13 +5,11 @@ sudo: false
 
 jdk:
     - oraclejdk8
-#  - oraclejdk7
-#  - openjdk6
 
 cache:
     directories:
         - $HOME/.m2
-#        - $HOME/.sonar/cache
+        - $HOME/.sonar/cache
 
 
 before_script:
@@ -28,16 +26,9 @@ after_success:
 addons:
     # https://docs.travis-ci.com/user/sonarqube/
     sonarqube:
-#        token:
-#            secure: odl6pq8+sN2RALadd1qS2SS8wK0RqTZ7QLh3m18CdkS83QyBMDJrUci6JY3/Qz1RZseFnJZbdV2mmu5x9LpY5+ZeaGLRorNC9d6hknl518p/LIZ1iLjVdXDLVsgepmG25x9MKkzsts5OXEHeoYlbNJhLOV
-#    branches:
-#      - master
-#      - maintenance
+    branches:
+      - master
+      - maintenance
 
 # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
 script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
-
-
-#env:
-#    global:
-#        secure: uYRBaF6m8UgEk1Vs/g7rwmZVbnEoObZ1ZkWt5Zdo/IiILcIzVGiG/aUzMlk24G2X4vLN1IlDHbUyI2pvFj8lLADOh7w4LG6b2SgRvzUV15yx1Ijk8dOGhaqtEtarLYQfB6ZLu4IavQjTJ4nQNPxl1w9+zZIF
