@@ -1,0 +1,55 @@
+version: "2"
+services:
+    haproxy:
+        image: haproxy:1.7.2-alpine
+        hostname: haproxy
+        volumes:
+            - ./conf/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+        ports:
+            # Bind to docker interface
+            # 172.17.0.1	redcross.local
+            - 172.17.0.1:80:80
+            - 172.17.0.1:443:443
+            - 172.17.0.1:9990:9990
+        networks:
+            - development
+
+    keycloak:
+        image: jboss/keycloak:2.5.0.Final
+        hostname: "keycloack"
+        env_file:
+            - keycloak.env
+        expose:
+            - "8080"
+            - "9990"
+            - "9999"
+
+        networks:
+            - development
+
+    wildfly:
+        image: fcorreia/wildfly:10.0.0.Final
+        hostname: "wildfly"
+        env_file:
+            - wildfly.env
+        expose:
+            - "8080"
+            - "9990"
+            - "9999"
+        networks:
+            - development
+
+    postgres:
+        image: postgres:9.6-alpine
+        hostname: postgres
+        env_file:
+            - keycloak.env
+        volumes:
+            - /opt/redcross/postgres:/var/lib/pgsql
+        expose:
+            - "5432"
+        networks:
+            - development
+
+networks:
+    development:

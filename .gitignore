@@ -1,4 +1,11 @@
-# Binaries 
+# local files
+db.env
+keycloak.env
+wildfly.env
+local.properties
+
+
+# Binaries
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -17,4 +24,9 @@ hs_err_pid*
 
 # Netbeans configuration
 **/nb-configuration.xml
+**/nbproject/*
 
+
+# IDEA
+**/.idea/*
+*.iml
