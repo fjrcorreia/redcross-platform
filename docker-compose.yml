@@ -14,7 +14,7 @@ services:
         networks:
             - development
 
-    keycloack:
+    keycloak:
         image: jboss/keycloak:2.5.0.Final
         hostname: "keycloack"
         env_file:
