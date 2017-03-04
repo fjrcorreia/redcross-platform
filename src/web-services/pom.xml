@@ -8,7 +8,6 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>pt.fjrcorreia.cruzvermelha</groupId>
     <artifactId>platform-web-services</artifactId>
     <packaging>war</packaging>
 
