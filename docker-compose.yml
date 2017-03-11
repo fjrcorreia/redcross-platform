@@ -21,8 +21,13 @@ services:
             - keycloak.env
         environment:
             - DEBUG=true
+            ## Exporting
+            #- JAVA_OPTS="$JAVA_OPTS -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/keycloack -Dkeycloak.migration.realmName=red-cross"
+            ## Importing
+            - JAVA_OPTS=-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/keycloack/red-cross.json -Dkeycloak.migration.strategy=IGNORE_EXISTING
         volumes:
-            - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
+            - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/red-cross:ro
+            - ./conf/keycloack/keycloak-redcross.json:/tmp/keycloack/red-cross.json:ro
         expose:
             - "8080"
             - "9990"
@@ -32,12 +37,17 @@ services:
             - development
 
     wildfly:
-        image: fcorreia/wildfly:10.0.0.Final
+        image: fcorreia/wildfly:10.1.0.Final
         hostname: "wildfly"
         env_file:
             - wildfly.env
         environment:
             - DEBUG=true
+        volumes:
+            - ./build/keycloak-wildfly-adapter/modules/system/add-ons/keycloak:/opt/wildfly/modules/system/add-ons/keycloak:ro
+            - ./conf/wildfly/keycloak-init.sh:/docker-init.d/00.keycloak-init.sh:ro
+            - ./build/keycloak-wildfly-adapter/bin/adapter-install-offline.cli:/tmp/keycloak-adapter-install.cli:ro
+            - ./conf/wildfly/init-red-cross.cli:/tmp/redcross-init.cli:ro
         expose:
             - "8080"
             - "9990"
