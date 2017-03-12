@@ -11,8 +11,11 @@ services:
             - 172.17.0.1:80:80
             - 172.17.0.1:443:443
             - 172.17.0.1:9990:9990
+
         networks:
-            - development
+            development:
+                aliases:
+                    - redcross.local
 
     keycloak:
         image: jboss/keycloak:2.5.0.Final
@@ -21,12 +24,10 @@ services:
             - keycloak.env
         environment:
             - DEBUG=true
-            ## Exporting
-            #- JAVA_OPTS="$JAVA_OPTS -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/keycloack -Dkeycloak.migration.realmName=red-cross"
             ## Importing
             - JAVA_OPTS=-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/keycloack/red-cross.json -Dkeycloak.migration.strategy=IGNORE_EXISTING
         volumes:
-            - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/red-cross:ro
+            - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
             - ./conf/keycloack/keycloak-redcross.json:/tmp/keycloack/red-cross.json:ro
         expose:
             - "8080"
@@ -34,7 +35,7 @@ services:
             - "9999"
 
         networks:
-            - development
+            development:
 
     wildfly:
         image: fcorreia/wildfly:10.1.0.Final

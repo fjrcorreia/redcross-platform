@@ -1,0 +1,26 @@
+
+## Start Embedded Server
+embed-server --server-config=standalone.xml
+
+# Add PostgreSQL JDBC Module
+module add --name=org.postgresql --resources=${POSTGRESQL_JDBC_FILE} --dependencies=javax.api,javax.transaction.api
+
+
+# Add PostgreSQL driver
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name="postgresql",driver-module-name="org.postgresql", \
+  driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+
+
+/subsystem=security/security-domain=RedCrossEncryptPasswd:add(cache-type=default)
+/subsystem=security/security-domain=RedCrossEncryptPasswd/authentication=classic:add( \
+    login-modules=[{"code"=>"org.picketbox.datasource.security.SecureIdentityLoginModule", \
+    "flag"=>"required","module-options"=>[("username"=>"$DB_USER"), ("password"=>"$DB_PASSWD")]}])
+
+
+
+# Add RedCross DataSource
+data-source add --name=redcrossDS \
+--jndi-name=java:jboss/datasources/redcrossDS \
+--jta=true --connection-url=jdbc:postgresql://${env.DB_HOST}:${env.DB_PORT}/redcross \
+--driver-name=postgresql --security-domain=RedCrossEncryptPasswd
