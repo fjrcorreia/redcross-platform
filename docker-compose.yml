@@ -24,11 +24,10 @@ services:
             - keycloak.env
         environment:
             - DEBUG=true
-            ## Importing
-            - JAVA_OPTS=-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/keycloack/red-cross.json -Dkeycloak.migration.strategy=IGNORE_EXISTING
         volumes:
             - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
-            - ./conf/keycloack/keycloak-redcross.json:/tmp/keycloack/red-cross.json:ro
+            - ./conf/keycloack/maiorca-cvp-realm.json:/tmp/keycloack/maiorca-cvp-realm.json:ro
+            - ./conf/keycloack/standalone.conf:/opt/jboss/keycloak/bin/standalone.conf:ro
         expose:
             - "8080"
             - "9990"

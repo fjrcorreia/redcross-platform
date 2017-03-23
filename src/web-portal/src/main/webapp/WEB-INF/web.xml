@@ -15,12 +15,14 @@
     
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Customers</web-resource-name>
+            <web-resource-name>platform-portal</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
+        
         <auth-constraint>
             <role-name>user</role-name>
         </auth-constraint>
+       
     </security-constraint>
 
     <!--    
@@ -32,7 +34,7 @@
 
     <login-config>
         <auth-method>KEYCLOAK</auth-method>
-        <realm-name>does-not-matter</realm-name>
+        <realm-name>maiorca-cvp</realm-name>
     </login-config>
 
 

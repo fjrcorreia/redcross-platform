@@ -4,6 +4,12 @@
     Author     : Francisco Correia {@literal <https://github.com/fjrcorreia>}
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Set"%>
+<%@page import="org.keycloak.representations.AccessToken"%>
+<%@page import="java.util.Collections"%>
+<%@page import="org.keycloak.representations.idm.authorization.Permission"%>
+<%@page import="java.util.List"%>
 <%@page import="org.keycloak.representations.IDToken"%>
 <%@page import="org.keycloak.KeycloakPrincipal"%>
 <%@page import="java.security.Principal"%>
@@ -31,6 +37,22 @@
         <%
             if (user != null) {
                 IDToken identityToken = user.getKeycloakSecurityContext().getIdToken();
+                AccessToken token = user.getKeycloakSecurityContext().getToken();
+                Set<String> roles = token.getRealmAccess().getRoles();
+                
+                List<Permission> permissions;
+                if (user.getKeycloakSecurityContext().getAuthorizationContext() != null) {
+
+                    log("Authorization Context OK!!");
+                    permissions = user.getKeycloakSecurityContext().getAuthorizationContext().getPermissions();
+                    if (permissions == null) {
+                        log("No Permissions????");
+                        permissions = Collections.EMPTY_LIST;
+                    }
+                } else {
+                    log("No Authorization Context????");
+                    permissions = Collections.EMPTY_LIST;
+                }
         %>
         <ul>
             <li>User: <%=user.getName()%></li>
@@ -70,6 +92,32 @@
             <li>getOtherClaims: <%=identityToken.getOtherClaims()%></li> 
         </ul>
 
+
+
+        <h2>Roles [<%=roles.size()%>]</h2>
+        <ul>
+            <%
+                Iterator<String> it = roles.iterator();
+                while (it.hasNext()) {
+                    
+            %>
+            <li>Role: <%=it.next()%></li> 
+                <%            }
+                %>
+        </ul>
+        
+        
+        
+        <h2>Permissions [<%=permissions.size()%>]</h2>
+        <ul>
+            <%
+                for (Permission p : permissions) {
+
+            %>
+            <li>ID: <%=p.getResourceSetId()%>, Name: <%=p.getResourceSetName()%>, Scopes: {<%=p.getScopes()%>}</li> 
+                <%            }
+                %>
+        </ul>
 
         <%
             }

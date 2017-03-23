@@ -44,8 +44,8 @@
     <body class="fundo" >
 
         <div class="titulo">
-            <h1>DELEGA√á√ÉO DE MAIORCA</h1>
-            <h2>COORDENA√á√ÉO LOCAL DE EMERG√äNCIA </h2> 
+            <h1>DELEGA&#199;&#195;O de MAIORCA</h1>
+            <h2>COORDENA«√O LOCAL DE EMERG NCIA</h2> 
         </div>
 
         <nav class="menu navbar navbar-inverse" role="navigation">
