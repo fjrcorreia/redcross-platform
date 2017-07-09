@@ -16,9 +16,10 @@ services:
             development:
                 aliases:
                     - redcross.local
+                    - redcross.docker.local
 
     keycloak:
-        image: jboss/keycloak:2.5.0.Final
+        image: jboss/keycloak:3.1.0.Final
         hostname: "keycloack"
         env_file:
             - keycloak.env
@@ -26,7 +27,7 @@ services:
             - DEBUG=true
         volumes:
             - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
-            - ./conf/keycloack/maiorca-cvp-realm.json:/tmp/keycloack/maiorca-cvp-realm.json:ro
+            - ./conf/keycloack/redcross-realm.json:/tmp/keycloack/redcross-realm.json:ro
             - ./conf/keycloack/standalone.conf:/opt/jboss/keycloak/bin/standalone.conf:ro
         expose:
             - "8080"
@@ -39,14 +40,16 @@ services:
     wildfly:
         image: fcorreia/wildfly:10.1.0.Final
         hostname: "wildfly"
+        extra_hosts:
+            - redcross.docker.local:172.17.0.1
         env_file:
             - wildfly.env
         environment:
             - DEBUG=true
         volumes:
-            - ./build/keycloak-wildfly-adapter/modules/system/add-ons/keycloak:/opt/wildfly/modules/system/add-ons/keycloak:ro
+            - ./build/keycloak-wildfly-adapter/3.1.0/modules/system/add-ons/keycloak:/opt/wildfly/modules/system/add-ons/keycloak:ro
+            - ./build/keycloak-wildfly-adapter/3.1.0/bin/adapter-install-offline.cli:/tmp/keycloak-adapter-install.cli:ro
             - ./conf/wildfly/keycloak-init.sh:/docker-init.d/00.keycloak-init.sh:ro
-            - ./build/keycloak-wildfly-adapter/bin/adapter-install-offline.cli:/tmp/keycloak-adapter-install.cli:ro
             - ./conf/wildfly/init-red-cross.cli:/tmp/redcross-init.cli:ro
         expose:
             - "8080"
@@ -59,7 +62,7 @@ services:
         image: postgres:9.6-alpine
         hostname: postgres
         env_file:
-            - keycloak.env
+            - postgres.env
         volumes:
             - /opt/redcross/postgres:/var/lib/pgsql
         expose:

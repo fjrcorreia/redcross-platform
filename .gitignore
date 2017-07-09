@@ -1,5 +1,5 @@
 # local files
-db.env
+postgres.env
 keycloak.env
 wildfly.env
 local.properties
