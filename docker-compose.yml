@@ -10,7 +10,6 @@ services:
             # 172.17.0.1	redcross.local
             - 172.17.0.1:80:80
             - 172.17.0.1:443:443
-            - 172.17.0.1:9990:9990
 
         networks:
             development:
@@ -19,8 +18,13 @@ services:
                     - redcross.docker.local
 
     keycloak:
-        image: jboss/keycloak:3.1.0.Final
-        hostname: "keycloack"
+#        image: jboss/keycloak:3.1.0.Final
+        build: ./build/keycloak
+        hostname: keycloack
+        depends_on:
+            - postgres
+        extra_hosts:
+            - redcross.docker.local:172.17.0.1
         env_file:
             - keycloak.env
         environment:
@@ -29,34 +33,14 @@ services:
             - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
             - ./conf/keycloack/redcross-realm.json:/tmp/keycloack/redcross-realm.json:ro
             - ./conf/keycloack/standalone.conf:/opt/jboss/keycloak/bin/standalone.conf:ro
-        expose:
-            - "8080"
-            - "9990"
-            - "9999"
+        ports:
+#            - 8080:8080
+            - 9990:9990
+
+        command: -bmanagement=0.0.0.0 -b 0.0.0.0
 
         networks:
             development:
-
-    wildfly:
-        image: fcorreia/wildfly:10.1.0.Final
-        hostname: "wildfly"
-        extra_hosts:
-            - redcross.docker.local:172.17.0.1
-        env_file:
-            - wildfly.env
-        environment:
-            - DEBUG=true
-        volumes:
-            - ./build/keycloak-wildfly-adapter/3.1.0/modules/system/add-ons/keycloak:/opt/wildfly/modules/system/add-ons/keycloak:ro
-            - ./build/keycloak-wildfly-adapter/3.1.0/bin/adapter-install-offline.cli:/tmp/keycloak-adapter-install.cli:ro
-            - ./conf/wildfly/keycloak-init.sh:/docker-init.d/00.keycloak-init.sh:ro
-            - ./conf/wildfly/init-red-cross.cli:/tmp/redcross-init.cli:ro
-        expose:
-            - "8080"
-            - "9990"
-            - "9999"
-        networks:
-            - development
 
     postgres:
         image: postgres:9.6-alpine
@@ -64,7 +48,8 @@ services:
         env_file:
             - postgres.env
         volumes:
-            - /opt/redcross/postgres:/var/lib/pgsql
+            - /opt/docker/redcross/postgres:/var/lib/postgresql/data
+            - ./conf/postgres/keycloak-init.sql:/docker-entrypoint-initdb.d/99.keycloak-init.sql
         expose:
             - "5432"
         networks:
