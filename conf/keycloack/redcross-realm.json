@@ -1,6 +1,6 @@
 {
-  "id" : "maiorca-cvp",
-  "realm" : "maiorca-cvp",
+  "id" : "redcross",
+  "realm" : "redcross",
   "displayName" : "Maiorca RedCross",
   "displayNameHtml" : "Maiorca, Coordenação Local de Emergência",
   "notBefore" : 0,
@@ -38,7 +38,7 @@
       "scopeParamRequired" : true,
       "composite" : false,
       "clientRole" : false,
-      "containerId" : "maiorca-cvp"
+      "containerId" : "redcross"
     }, {
       "id" : "bda5c8eb-9b86-43c0-8cc8-c571c618b261",
       "name" : "user",
@@ -46,7 +46,7 @@
       "scopeParamRequired" : false,
       "composite" : false,
       "clientRole" : false,
-      "containerId" : "maiorca-cvp"
+      "containerId" : "redcross"
     }, {
       "id" : "d745554a-1107-4d47-bdf0-1e10565b23a6",
       "name" : "uma_authorization",
@@ -54,7 +54,7 @@
       "scopeParamRequired" : false,
       "composite" : false,
       "clientRole" : false,
-      "containerId" : "maiorca-cvp"
+      "containerId" : "redcross"
     } ],
     "client" : {
       "realm-management" : [ {
@@ -277,13 +277,13 @@
     "id" : "640ac6a3-7b78-459c-884f-29f537d98a82",
     "clientId" : "account",
     "name" : "${client_account}",
-    "baseUrl" : "/auth/realms/maiorca-cvp/account",
+    "baseUrl" : "/auth/realms/redcross/account",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
     "secret" : "75361834-cdac-4116-936e-9e570175231d",
     "defaultRoles" : [ "view-profile", "manage-account" ],
-    "redirectUris" : [ "/auth/realms/maiorca-cvp/account/*" ],
+    "redirectUris" : [ "/auth/realms/redcross/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -605,13 +605,13 @@
   }, {
     "id" : "5ece7765-8f3d-4939-99d9-40ec2a89efb9",
     "clientId" : "platform-portal",
-    "rootUrl" : "/portal",
-    "adminUrl" : "/portal",
+    "rootUrl" : "http://redcross.docker.local/portal",
+    "adminUrl" : "/admin",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
     "secret" : "3cecd948-e419-4254-8ef3-dbaa1b827f20",
-    "redirectUris" : [ "/portal/*", "http://redcross.local/portal/*" ],
+    "redirectUris" : [ "/portal/*", "http://redcross.docker.local/portal/*" ],
     "webOrigins" : [ "/portal/*" ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -836,12 +836,12 @@
     "id" : "bebd75ee-7716-4a27-afc0-2ec2430afa12",
     "clientId" : "security-admin-console",
     "name" : "${client_security-admin-console}",
-    "baseUrl" : "/auth/admin/maiorca-cvp/console/index.html",
+    "baseUrl" : "/auth/admin/redcross/console/index.html",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
     "secret" : "500925f7-856a-4d47-bce6-29976cc11235",
-    "redirectUris" : [ "/auth/admin/maiorca-cvp/console/*" ],
+    "redirectUris" : [ "/auth/admin/redcross/console/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
