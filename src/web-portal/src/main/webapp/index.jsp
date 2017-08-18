@@ -9,6 +9,12 @@
 
 
 <%
+    String param = request.getParameter("logout");
+    if (param != null){
+        System.out.println("Do Logout");
+        request.logout();
+        response.sendRedirect("/portal");
+    }
     PlatformUser user = userBean.getUser(request);
 %>
 <html lang="pt">
@@ -99,7 +105,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Terminar Sessão </a>
+                                    <a href="?logout=true"><i class="fa fa-fw fa-power-off"></i> Terminar Sessão </a>
                                 </li>
                             </ul>
                         </li>

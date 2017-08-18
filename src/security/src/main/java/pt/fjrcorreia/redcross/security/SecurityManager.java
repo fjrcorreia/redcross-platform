@@ -4,21 +4,25 @@
  */
 package pt.fjrcorreia.redcross.security;
 
+import pt.fjrcorreia.redcross.security.keycloak.KeycloakAuthenticator;
+
 /**
  *
  * @author Francisco Correia {@literal <https://github.com/fjrcorreia>}
  */
 public class SecurityManager {
     
-    private Authenticator authenticator;
+    private final Authenticator authenticator;
     
     
     private SecurityManager(){
-        
+        authenticator = new KeycloakAuthenticator();
     }
     
     
     private static SecurityManager instance = null;
+    
+    
     public static final SecurityManager getSecurityManager(){
         if (instance == null){
             instance = new SecurityManager();

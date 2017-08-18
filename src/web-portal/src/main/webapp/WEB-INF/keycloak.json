@@ -1,6 +1,6 @@
 {
   "realm": "maiorca-cvp",
-  "auth-server-url": "/auth",
+  "auth-server-url": "http://redcross.brainvoid.pt/auth",
   "ssl-required": "external",
   "resource": "platform-portal",
   "public-client": true

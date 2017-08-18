@@ -9,23 +9,23 @@
             30
         </session-timeout>
     </session-config>
-    
+
     <module-name>platform-portal</module-name>
 
-    
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>platform-portal</web-resource-name>
-            <url-pattern>/*</url-pattern>
+            <url-pattern>/index.jsp</url-pattern>
         </web-resource-collection>
-        
+
         <auth-constraint>
             <role-name>user</role-name>
         </auth-constraint>
-       
+
     </security-constraint>
 
-    <!--    
+    <!--
         <login-config>
             <auth-method>BASIC</auth-method>
             <realm-name>this is ignored currently</realm-name>
@@ -38,12 +38,12 @@
     </login-config>
 
 
-    
+
     <security-role>
         <role-name>admin</role-name>
     </security-role>
     <security-role>
         <role-name>user</role-name>
     </security-role>
-    
+
 </web-app>

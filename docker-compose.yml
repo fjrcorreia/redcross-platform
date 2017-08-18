@@ -7,10 +7,10 @@ services:
             - ./conf/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
         ports:
             # Bind to docker interface
-            # 172.17.0.1	redcross.local
-            - 172.17.0.1:80:80
-            - 172.17.0.1:443:443
-            - 172.17.0.1:9990:9990
+            # 172.17.0.1	192.168.1.90 redcross.local
+            - 192.168.1.90:80:80
+            - 192.168.1.90:443:443
+            - 192.168.1.90:9990:9990
 
         networks:
             development:
@@ -18,7 +18,7 @@ services:
                     - redcross.local
 
     keycloak:
-        image: jboss/keycloak:2.5.0.Final
+        image: jboss/keycloak:3.2.0.Final
         hostname: "keycloack"
         env_file:
             - keycloak.env
@@ -28,10 +28,12 @@ services:
             - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
             - ./conf/keycloack/maiorca-cvp-realm.json:/tmp/keycloack/maiorca-cvp-realm.json:ro
             - ./conf/keycloack/standalone.conf:/opt/jboss/keycloak/bin/standalone.conf:ro
-        expose:
-            - "8080"
-            - "9990"
-            - "9999"
+#        ports:
+#            - "8080:8080"
+#            - "9990:9990"
+#            - "9999:9999"
+#
+#        command: "-bmanagement=0.0.0.0"
 
         networks:
             development:
@@ -61,7 +63,7 @@ services:
         env_file:
             - keycloak.env
         volumes:
-            - /opt/redcross/postgres:/var/lib/pgsql
+            - /opt/docker/redcross/postgres:/var/lib/pgsql
         expose:
             - "5432"
         networks:
