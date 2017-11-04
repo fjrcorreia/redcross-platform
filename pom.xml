@@ -20,7 +20,10 @@
         <project.custom.base.name>Red Cross Platform</project.custom.base.name>
 
         <!-- SonarQube Server -->
+        <!-- Optional URL to server. Default value is http://localhost:9000 -->
+        <!-- https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner -->
         <sonar.host.url>https://sonarqube.com</sonar.host.url>
+        
     </properties>
 
 
@@ -33,8 +36,8 @@
 
     <licenses>
         <license>
-            <name>GNU General Public License version 3</name>
-            <url>https://opensource.org/licenses/GPL-3.0</url>
+            <name>GNU General Public License version 2</name>
+            <url>https://opensource.org/licenses/GPL-2.0</url>
         </license>
     </licenses>
 
@@ -58,12 +61,13 @@
 
 
     <modules>
-        <module>src/platform-api</module>
-        <module>src/platform-entities</module>
-        <module>src/platform-web-portal</module>
-        <module>src/platform-web-services</module>
-        <module>src/platform-security</module>
-        <module>src/platform-commons</module>
+        <module>src/api</module>
+        <module>src/entities</module>
+        <module>src/web-services</module>
+        <module>src/web-portal</module>
+        <module>src/commons</module>
+        <module>src/security</module>
+        <module>src/keycloack-theme</module>
     </modules>
 
 
@@ -158,12 +162,6 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <properties>
-                <!-- Optional URL to server. Default value is http://localhost:9000 -->
-                <!-- https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner -->
-
-
-            </properties>
             <build>
                 <plugins>
                     <plugin>
