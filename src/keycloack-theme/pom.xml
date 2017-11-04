@@ -5,7 +5,10 @@
         <groupId>pt.fjrcorreia.redcross</groupId>
         <artifactId>red-cross-platform</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
+    
+    
     <artifactId>keycloak-theme</artifactId>
     <packaging>jar</packaging>
     

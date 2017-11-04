@@ -23,7 +23,13 @@
         <!-- Optional URL to server. Default value is http://localhost:9000 -->
         <!-- https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner -->
         <sonar.host.url>https://sonarqube.com</sonar.host.url>
-        
+
+
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <resteasy.version>3.0.12.Final</resteasy.version>
+        <keycloak.version>3.1.0.Final</keycloak.version>
+        <jboss.logging.version>3.3.0.Final</jboss.logging.version>
+        <wildfly.plugin.version>1.2.0.Alpha4</wildfly.plugin.version>
     </properties>
 
 
@@ -68,7 +74,60 @@
         <module>src/commons</module>
         <module>src/security</module>
         <module>src/keycloack-theme</module>
+        <module>src/static</module>
     </modules>
+
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>jaxrs-api</artifactId>
+                <version>${resteasy.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-client</artifactId>
+                <version>${resteasy.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-core</artifactId>
+                <version>${keycloak.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-adapter-core</artifactId>
+                <version>${keycloak.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${jboss.logging.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
 
 
     <build>
@@ -133,7 +192,7 @@
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
                     <artifactId>wildfly-maven-plugin</artifactId>
-                    <version>1.1.0.Final</version>
+                    <version>${wildfly.plugin.version}</version>
                     <configuration>
                         <filename>${project.build.finalName}.war</filename>
                         <skip>false</skip>

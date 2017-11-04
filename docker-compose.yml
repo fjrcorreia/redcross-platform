@@ -10,48 +10,46 @@ services:
             # 172.17.0.1	redcross.local
             - 172.17.0.1:80:80
             - 172.17.0.1:443:443
-            - 172.17.0.1:9990:9990
-        networks:
-            - development
 
-    keycloack:
-        image: jboss/keycloak:2.5.0.Final
-        hostname: "keycloack"
+        networks:
+            development:
+                aliases:
+                    - redcross.local
+                    - redcross.docker.local
+
+    keycloak:
+#        image: jboss/keycloak:3.1.0.Final
+        build: ./build/keycloak
+        hostname: keycloack
+        depends_on:
+            - postgres
+        extra_hosts:
+            - redcross.docker.local:172.17.0.1
         env_file:
             - keycloak.env
         environment:
             - DEBUG=true
         volumes:
             - ./src/keycloack-theme/src/main/resources/theme/redcross:/opt/jboss/keycloak/themes/redcross:ro
-        expose:
-            - "8080"
-            - "9990"
-            - "9999"
+            - ./conf/keycloack/redcross-realm.json:/tmp/keycloack/redcross-realm.json:ro
+            - ./conf/keycloack/standalone.conf:/opt/jboss/keycloak/bin/standalone.conf:ro
+        ports:
+#            - 8080:8080
+            - 9990:9990
+
+        command: -bmanagement=0.0.0.0 -b 0.0.0.0
 
         networks:
-            - development
-
-    wildfly:
-        image: fcorreia/wildfly:10.0.0.Final
-        hostname: "wildfly"
-        env_file:
-            - wildfly.env
-        environment:
-            - DEBUG=true
-        expose:
-            - "8080"
-            - "9990"
-            - "9999"
-        networks:
-            - development
+            development:
 
     postgres:
         image: postgres:9.6-alpine
         hostname: postgres
         env_file:
-            - keycloak.env
+            - postgres.env
         volumes:
-            - /opt/redcross/postgres:/var/lib/pgsql
+            - /opt/docker/redcross/postgres:/var/lib/postgresql/data
+            - ./conf/postgres/keycloak-init.sql:/docker-entrypoint-initdb.d/99.keycloak-init.sql
         expose:
             - "5432"
         networks:

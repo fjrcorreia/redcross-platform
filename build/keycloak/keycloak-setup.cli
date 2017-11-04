@@ -1,0 +1,24 @@
+
+## Start Embedded Server
+embed-server --server-config=standalone.xml
+
+
+
+# Add PostgreSQL driver
+/subsystem=datasources/jdbc-driver=PostGreSQLJDBCDriver:add(driver-name="PostGreSQLJDBCDriver",driver-module-name="org.postgresql",\
+  driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+# Add RedCross DataSource
+/subsystem=datasources/data-source=redcrossDS/:add(jndi-name=java:jboss/datasources/redcrossDS,driver-name=PostGreSQLJDBCDriver,\
+connection-url=jdbc:postgresql://${env.POSTGRES_HOST:postgres}:${POSTGRES_PORT:5432}/redcross,driver-class=org.postgresql.Driver,enabled=true,\
+transaction-isolation=TRANSACTION_READ_COMMITTED,track-statements=NOWARN,flush-strategy=FailingConnectionOnly,min-pool-size=10,\
+user-name=${env.REDCROSS_DBUSER:redcross},password=${env.REDCROSS_DBPASS:redcross})
+
+
+## Configure keycloak to use postgresql
+## Actually updating configuration
+/subsystem=datasources/data-source=KeycloakDS/:remove
+/subsystem=datasources/data-source=KeycloakDS/:add(jndi-name=java:jboss/datasources/KeycloakDS,use-java-context=true,driver-name=PostGreSQLJDBCDriver,\
+connection-url=jdbc:postgresql://${env.POSTGRES_HOST:postgres}/${env.KEYCLOAK_DBNAME:keycloak},driver-class=org.postgresql.Driver,enabled=true,\
+transaction-isolation=TRANSACTION_READ_COMMITTED,track-statements=NOWARN,flush-strategy=FailingConnectionOnly,min-pool-size=10,\
+user-name=${env.KEYCLOAK_DBUSER:keycloak},password=${env.KEYCLOAK_DBPASS:keycloak})

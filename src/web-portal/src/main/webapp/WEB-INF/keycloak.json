@@ -1,0 +1,7 @@
+{
+  "realm": "redcross",
+  "auth-server-url": "/auth",
+  "ssl-required": "external",
+  "resource": "platform-portal",
+  "public-client": true
+}

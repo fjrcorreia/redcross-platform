@@ -11,7 +11,7 @@
     </parent>
     
 
-    <artifactId>red-cross-platform-portal</artifactId>
+    <artifactId>platform-portal</artifactId>
     <packaging>war</packaging>
 
     
@@ -23,6 +23,15 @@
     </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>platform-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

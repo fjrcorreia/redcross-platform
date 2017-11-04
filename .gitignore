@@ -1,9 +1,9 @@
-# local files
-db.env
+# Local files
+postgres.env
 keycloak.env
 wildfly.env
 local.properties
-
+sonar-project.properties
 
 # Binaries
 *.class
@@ -30,3 +30,7 @@ hs_err_pid*
 # IDEA
 **/.idea/*
 *.iml
+
+
+## Misc
+.DS_Store
